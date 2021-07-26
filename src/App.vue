@@ -65,22 +65,50 @@
       class="w-52 pl-5 pb-5"
       @click="inputClickHandler"
     >
+      <template #label>
+        Input with mask
+      </template>
       <template #prepend>
         <div class="flex justify-center items-center cursor-pointer">
           <img src="@/assets/cloud.svg" alt="">
         </div>
       </template>
     </FormInput>
+    <FormInputPassword
+      v-model="password"
+      class="w-52 pl-5 pb-5"
+    >
+      <template #label>
+        Input type password
+      </template>
+      <template #append="slotProps">
+        <div
+          v-if="password.length"
+          class="flex flex-row items-center justify-center cursor-pointer"
+        >
+          <span class="text-13px underline text-primary-300 select-none w-5">
+            <template v-if="slotProps.shown">
+              <img src="@/assets/eye_close.svg" alt="" @click="slotProps.hide">
+            </template>
+            <template v-else>
+              <img src="@/assets/eye_open.svg" alt="" @click="slotProps.show">
+            </template>
+          </span>
+        </div>
+      </template>
+    </FormInputPassword>
   </div>
 </template>
 
 <script>
 import FormInput from '@/components/FormInput.vue';
+import FormInputPassword from '@/components/FormInputPassword.vue';
 
 export default {
   name: 'App',
   components: {
     FormInput,
+    FormInputPassword,
   },
   data() {
     return {
@@ -89,6 +117,7 @@ export default {
       textInput3: 'textInput3',
       textInput4: 10,
       textInput5: '',
+      password: '',
     };
   },
   methods: {
