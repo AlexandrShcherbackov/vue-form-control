@@ -42,6 +42,7 @@
           :placeholder="placeholder"
           class="flex-grow font-semibold bg-transparent outline-none leading-4 min-w-0"
           v-bind="$attrs"
+          v-mask="mask"
           v-on="{
             ...$listeners,
             input: ($event) => $emit('input', $event.target.value, $event),

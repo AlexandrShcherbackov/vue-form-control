@@ -59,6 +59,18 @@
         </div>
       </template>
     </FormInput>
+    <FormInput
+      v-model="textInput5"
+      placeholder="text placeholder 5"
+      class="w-52 pl-5 pb-5"
+      @click="inputClickHandler"
+    >
+      <template #prepend>
+        <div class="flex justify-center items-center cursor-pointer">
+          <img src="@/assets/cloud.svg" alt="">
+        </div>
+      </template>
+    </FormInput>
   </div>
 </template>
 
@@ -76,6 +88,7 @@ export default {
       textInput2: 'textInput2',
       textInput3: 'textInput3',
       textInput4: 10,
+      textInput5: '',
     };
   },
   methods: {
@@ -87,6 +100,11 @@ export default {
     },
     enterHandler(v) {
       this.$refs[v].focusInput();
+    },
+    inputClickHandler(e, api) {
+      if (api) {
+        api.api.focusInput();
+      }
     },
   },
 };
