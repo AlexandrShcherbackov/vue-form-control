@@ -1,140 +1,30 @@
 <template>
-  <div id="app" class="flex flex-row flex-wrap items-start justify-start -ml-5 p-8 bg-gray-400 w-full h-screen">
-    <FormInput
-      v-model="textInput1"
-      placeholder="text placeholder 1"
-      class="w-52 pl-5 pb-5"
-      @keyup.enter="enterHandler('textInput2')"
-    >
-      <template #label>
-        Input type text
-      </template>
-    </FormInput>
-    <FormInput
-      v-model="textInput2"
-      ref="textInput2"
-      size="normal"
-      placeholder="text placeholder 2"
-      invalid
-      class="w-52 pl-5 pb-5"
-    >
-      <template #label>
-        invalid Input type text
-      </template>
-    </FormInput>
-    <FormInput
-      v-model="textInput3"
-      size="auto"
-      placeholder="text placeholder 3"
-      classes="rounded-lg"
-      class="w-52 pl-5 pb-5"
-    >
-      <template #label>
-        Input type text height auto
-      </template>
-    </FormInput>
-    <FormInput
-      v-model="textInput4"
-      type="number"
-      placeholder="text placeholder 4"
-      class="w-52 pl-5 pb-5"
-    >
-      <template #label>
-        Input type number
-      </template>
-      <template #append>
-        <div class="flex flex-col">
-          <button
-            class="flex items-center justify-center w-8 h-1/2 border-l border-b border-whitesmoke"
-            @click="increment"
-          >
-            <span class="vertical-arrow"></span>
-          </button>
-          <button
-            class="flex items-center justify-center border-l border-t border-whitesmoke w-8 h-1/2 -m-t-1"
-            @click="decrement"
-          >
-            <span class="vertical-arrow active"></span>
-          </button>
-        </div>
-      </template>
-    </FormInput>
-    <FormInput
-      v-model="textInput5"
-      placeholder="text placeholder 5"
-      class="w-52 pl-5 pb-5"
-      @click="inputClickHandler"
-    >
-      <template #label>
-        Input with mask
-      </template>
-      <template #prepend>
-        <div class="flex justify-center items-center cursor-pointer">
-          <img src="@/assets/cloud.svg" alt="">
-        </div>
-      </template>
-    </FormInput>
-    <FormInputPassword
-      v-model="password"
-      class="w-52 pl-5 pb-5"
-    >
-      <template #label>
-        Input type password
-      </template>
-      <template #append="slotProps">
-        <div
-          v-if="password.length"
-          class="flex flex-row items-center justify-center cursor-pointer"
-        >
-          <span class="text-13px underline text-primary-300 select-none w-5">
-            <template v-if="slotProps.shown">
-              <img src="@/assets/eye_close.svg" alt="" @click="slotProps.hide">
-            </template>
-            <template v-else>
-              <img src="@/assets/eye_open.svg" alt="" @click="slotProps.show">
-            </template>
-          </span>
-        </div>
-      </template>
-    </FormInputPassword>
+  <div id="app" class="flex flex-row flex-wrap items-center justify-center -ml-5 p-8 bg-gray-400 w-full h-screen">
+    <FormDateBase
+      v-model="dateA.current"
+      :min-date="dateA.minDate"
+      :max-date="dateA.maxDate"
+      show-numbers-of-week
+    />
   </div>
 </template>
 
 <script>
-import FormInput from '@/components/FormInput.vue';
-import FormInputPassword from '@/components/FormInputPassword.vue';
+import FormDateBase from '@/components/FormDateBase.vue';
 
 export default {
   name: 'App',
   components: {
-    FormInput,
-    FormInputPassword,
+    FormDateBase,
   },
   data() {
     return {
-      textInput1: 'textInput1',
-      textInput2: 'textInput2',
-      textInput3: 'textInput3',
-      textInput4: 10,
-      textInput5: '',
-      password: '',
+      dateA: {
+        current: new Date('December 17, 1995 03:24:00'),
+        minDate: new Date('December 17, 1985 03:24:00'),
+        maxDate: new Date('December 17, 2005 03:24:00'),
+      },
     };
-  },
-  methods: {
-    increment() {
-      this.textInput4 = Number(this.textInput4) + 1;
-    },
-    decrement() {
-      this.textInput4 = Number(this.textInput4) - 1;
-    },
-    enterHandler(v) {
-      this.$refs[v].focusInput();
-    },
-    inputClickHandler(e, api) {
-      if (api) {
-        api.api.focusInput();
-      }
-    },
   },
 };
 </script>
